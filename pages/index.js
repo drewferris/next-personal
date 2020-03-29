@@ -2,47 +2,43 @@ import Layout from "../components/MyLayout";
 import Link from "next/link";
 import fetch from "isomorphic-unfetch";
 
-const PostLink = ({ post }) => (
-  <li>
-    <Link href="/p/[id]" as={`/p/${post.id}`}>
-      <a>{post.title}</a>
-    </Link>
-  </li>
-);
+const Index = props => {
+  const { shows } = props;
 
-const Index = props => (
-  <Layout>
-    <h1>Batman TV Shows</h1>
-    <ul>
-      {props.shows.map(show => (
-        <li key={show.id}>
-          <Link href="/p/[id]" as={`/p/${show.id}`}>
-            <a>{show.name}</a>
-          </Link>
-        </li>
-      ))}
-    </ul>
-    <style jsx>{`
-      ul {
-        padding: 0;
-      }
+  return (
+    <Layout>
+      <h1>Batman TV Shows</h1>
+      <ul>
+        {shows.map(show => (
+          <li key={show.id}>
+            <Link href="/p/[id]" as={`/p/${show.id}`}>
+              <a>{show.name}</a>
+            </Link>
+          </li>
+        ))}
+      </ul>
+      <style jsx>{`
+        ul {
+          padding: 0;
+        }
 
-      li {
-        list-style: none;
-        margin: 5px 0;
-      }
+        li {
+          list-style: none;
+          margin: 5px 0;
+        }
 
-      a {
-        text-decoration: none;
-        color: blue;
-      }
+        a {
+          text-decoration: none;
+          color: blue;
+        }
 
-      a:hover {
-        opacity: 0.6;
-      }
-    `}</style>
-  </Layout>
-);
+        a:hover {
+          opacity: 0.6;
+        }
+      `}</style>
+    </Layout>
+  );
+};
 
 Index.getInitialProps = async function() {
   const res = await fetch("https://api.tvmaze.com/search/shows?q=batman");
