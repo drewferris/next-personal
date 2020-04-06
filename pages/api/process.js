@@ -39,5 +39,3 @@ function openLinks(links) {
     opn(link.link);
   });
 }
-
-getUrl();
